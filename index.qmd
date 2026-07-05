@@ -5,45 +5,45 @@
 # =============================================================================
 project:
   resources:
-    - "assets/"          # copy the whole assets/ dir into the build output
+    - "assets/" # copy the whole assets/ dir into the build output
 filters:
-  - inline.lua           # rewrites custom classes into Typst for the PDF
+  - inline.lua # rewrites custom classes into Typst for the PDF
 
 format:
-  # ---- PDF (Typst engine) ----
+# ---- PDF (Typst engine) ----
   typst:
-    include-in-header: style.typ      # component functions + type/heading styles
-    include-before-body: layout.typ   # document-level setup (code, figures, math)
-    font-paths: ["assets/fonts"]      # bundled TTFs so the PDF is reproducible
+    include-in-header: style.typ # component functions + type/heading styles
+    include-before-body: layout.typ # document-level setup (code, figures, math)
+    font-paths: ["assets/fonts"] # bundled TTFs so the PDF is reproducible
     papersize: a4
     number-sections: false
     toc: false
     highlight-style: tango
-  # ---- HTML site ----
+    # ---- HTML site ----
   html:
     toc: true
     toc-depth: 3
     toc-location: right
     page-layout: article
     format-links: false
-    other-links:                      # adds a "PDF" download link in the sidebar
+    other-links: # adds a "PDF" download link in the sidebar
       - text: PDF
         href: index.pdf
         icon: file-pdf
     theme:
-      light: minimal                  # light/dark Bootswatch themes + our overrides
+      light: minimal # light/dark Bootswatch themes + our overrides
       dark: darkly
     css: styles.css
     highlight-style:
       light: tango
       dark: dracula
-    # CSL is HTML-only: Quarto fetches this URL for the web build. Typst can't
-    # open a remote CSL, so the PDF uses Typst's built-in numeric bibliography.
+      # CSL is HTML-only: Quarto fetches this URL for the web build. Typst can't
+      # open a remote CSL, so the PDF uses Typst's built-in numeric bibliography.
     csl: https://raw.githubusercontent.com/citation-style-language/styles/master/ieee.csl
 
-# ---- Document-level (applies to BOTH formats) ----
+    # ---- Document-level (applies to BOTH formats) ----
 bibliography: references.bib
-title-block-style: none               # we hand-build the cover instead
+title-block-style: none # we hand-build the cover instead
 link-citations: true
 ---
 

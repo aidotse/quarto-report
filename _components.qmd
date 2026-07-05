@@ -18,8 +18,9 @@ You can also highlight a term as an [orange badge]{.orange-badge}, add quieter
 
 ## Callout / boxed paragraphs
 
-A **prompt box** is a left-accented panel — good for system prompts, definitions,
-or any block you want to set apart. Wrap content in `::: {.prompt-box}`.
+A **prompt box** is a left-accented panel --- good for system prompts, definitions,
+or any block you want to set apart.
+Wrap content in `::: {.prompt-box}`.
 
 ::: {.prompt-box}
 Use the context below to answer the question.
@@ -39,13 +40,15 @@ How can a single Markdown source produce both a polished PDF and a themeable
 website without maintaining two documents?
 :::
 
-An **algorithm box** (`::: {.algorithm-box}`) is a light panel for pseudocode. It
+An **algorithm box** (`::: {.algorithm-box}`) is a light panel for pseudocode.
+It
 respects manual line breaks (end a line with a backslash `\`), inline and display
 math, monospace step labels like `` `1:` ``, `$\quad$` for indentation, and a
 horizontal rule (`---`) to split sub-procedures (styled by `.algorithm-box hr`).
 
 ::: {.algorithm-box}
-**Algorithm 1** FederatedAveraging. $K$ clients indexed by $k$; local batch size
+**Algorithm 1** FederatedAveraging.
+$K$ clients indexed by $k$; local batch size
 $B$, local epochs $E$, learning rate $\eta$.
 
 **Server executes:**\
@@ -64,50 +67,48 @@ $B$, local epochs $E$, learning rate $\eta$.
 ## Data cards (colored top border)
 
 Cards use `::: {.custom-card}` plus a theme class: `.anchor-theme` (blue),
-`.positive-theme` (green), or `.negative-theme` (red). Combine with Quarto's
+`.positive-theme` (green), or `.negative-theme` (red).
+Combine with Quarto's
 `layout-ncol` to place them side by side; a `---` inside becomes a divider rule.
 
 ::: {.list-indent}
-::: {layout-ncol="3"}
-
-::: {.custom-card .anchor-theme}
+::::: {layout-ncol="3"}
+::::::: {.custom-card .anchor-theme}
 **Anchor** [(neutral)]{.subtext}
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 The blue "anchor" theme is for a reference item or a query.
-:::
+:::::::
 
-::: {.custom-card .positive-theme}
+::::::: {.custom-card .positive-theme}
 **Positive** [(good)]{.subtext}
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 The green "positive" theme is for a correct or desirable item.
-:::
+:::::::
 
-::: {.custom-card .negative-theme}
+::::::: {.custom-card .negative-theme}
 **Negative** [(bad)]{.subtext}
 
----
+------------------------------------------------------------------------------------------------------------------------
 
 The red "negative" theme is for an incorrect or cautionary item.
-:::
-
-:::
+:::::::
+:::::
 :::
 
 ## Cards as a numbered figure (Q&A / quiz)
 
 Put cards inside a `::: {#fig-...}` block to get a numbered, cross-referenceable
-figure (@fig-quiz). This example pairs a `.quiz-card` with `.mcq-option` answers;
+figure (@fig-quiz).
+This example pairs a `.quiz-card` with `.mcq-option` answers;
 add `.correct` to the right one.
 
 ::: {#fig-quiz}
-
-::: {layout="[[45, 55]]"}
-
-::: {.quiz-card}
+::::: {layout="[[45, 55]]"}
+::::::: {.quiz-card}
 [Topic Tag]{.quiz-tag} [Subtopic]{.quiz-tag}
 
 [Question]{.label-orange}
@@ -115,25 +116,23 @@ Which fenced-div class produces the green "correct answer" styling?
 
 [Context]{.label-blue}
 Options use `::: {.mcq-option}`; the correct one adds the `.correct` class.
-:::
+:::::::
 
-::: {.quiz-card}
-
-::: {.mcq-option}
+::::::: {.quiz-card}
+::::::::: {.mcq-option}
 **Option A** `.custom-card`
-:::
-::: {.mcq-option .correct}
+:::::::::
+::::::::: {.mcq-option .correct}
 **Option B (correct)** `.mcq-option .correct`
-:::
-::: {.mcq-option}
+:::::::::
+::::::::: {.mcq-option}
 **Option C** `.prompt-box`
-:::
+:::::::::
 
 > **Explanation**
 > `.mcq-option .correct` renders the green border and background.
-:::
-
-:::
+:::::::
+:::::
 
 A quiz card paired with multiple-choice options.
 :::
@@ -141,7 +140,8 @@ A quiz card paired with multiple-choice options.
 ## Author / bio strip
 
 `.author-box` (a shaded pill) and `.divider-line` (a full-width rule) are HTML-only
-utilities — handy for a byline or a contributor list. The raw Typst counterpart to the former (other than using `backticks like this`) is a `box` (optionally in a `grid`), which lets you control the fill color, radius, etc.:
+utilities --- handy for a byline or a contributor list.
+The raw Typst counterpart to the former (other than using `backticks like this`) is a `box` (optionally in a `grid`), which lets you control the fill color, radius, etc.:
 
 ::: {.content-visible when-format="typst"}
 ```{=typst}
