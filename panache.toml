@@ -1,0 +1,15 @@
+# Panache — Pandoc/Quarto-aware Markdown formatter + linter (https://panache.bz)
+# Governs source formatting for .qmd / .md. Enforced via the pre-commit hook
+# (.pre-commit-config.yaml) and runnable manually: `panache format .`
+#
+# Why Panache and not mdformat/Prettier: those are CommonMark tools that corrupt
+# Quarto syntax (escaping $…$ math, rewriting ::: fences, mangling raw {=typst}
+# blocks). Panache parses the Pandoc/Quarto CST and is render-safe.
+
+flavor = "quarto"
+line-width = 120
+
+[format]
+# "semantic" = one sentence / clause per line (ventilated prose), capped at
+# line-width. Gives clean, single-line-per-edit diffs and avoids reflow churn.
+wrap = "semantic"

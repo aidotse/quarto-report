@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 260">
+  <!-- Placeholder for a light-background raster (PNG/JPG) export, e.g. a chart or
+       app screenshot. Demonstrates the .auto-invert and .light-island utilities. -->
+  <rect width="480" height="260" fill="#ffffff"/>
+  <g font-family="Roboto, Arial, sans-serif" fill="#333333">
+    <text x="24" y="34" font-size="16" font-weight="700">Sample Metric by Run</text>
+    <line x1="60" y1="210" x2="456" y2="210" stroke="#cccccc" stroke-width="1"/>
+    <line x1="60" y1="60"  x2="60"  y2="210" stroke="#cccccc" stroke-width="1"/>
+    <rect x="90"  y="130" width="50" height="80"  fill="#2196F3"/>
+    <rect x="170" y="100" width="50" height="110" fill="#4CAF50"/>
+    <rect x="250" y="150" width="50" height="60"  fill="#E65100"/>
+    <rect x="330" y="80"  width="50" height="130" fill="#673AB7"/>
+    <text x="115" y="228" font-size="12" text-anchor="middle">A</text>
+    <text x="195" y="228" font-size="12" text-anchor="middle">B</text>
+    <text x="275" y="228" font-size="12" text-anchor="middle">C</text>
+    <text x="355" y="228" font-size="12" text-anchor="middle">D</text>
+  </g>
+</svg>

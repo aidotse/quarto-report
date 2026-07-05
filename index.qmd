@@ -1,0 +1,175 @@
+---
+# =============================================================================
+# DUAL-FORMAT QUARTO TEMPLATE (PDF via Typst + HTML site)
+# One Markdown source -> two outputs. See README.md for the effect->file map.
+# =============================================================================
+project:
+  resources:
+    - "assets/"          # copy the whole assets/ dir into the build output
+filters:
+  - inline.lua           # rewrites custom classes into Typst for the PDF
+
+format:
+  # ---- PDF (Typst engine) ----
+  typst:
+    include-in-header: style.typ      # component functions + type/heading styles
+    include-before-body: layout.typ   # document-level setup (code, figures, math)
+    font-paths: ["assets/fonts"]      # bundled TTFs so the PDF is reproducible
+    papersize: a4
+    number-sections: false
+    toc: false
+    highlight-style: tango
+  # ---- HTML site ----
+  html:
+    toc: true
+    toc-depth: 3
+    toc-location: right
+    page-layout: article
+    format-links: false
+    other-links:                      # adds a "PDF" download link in the sidebar
+      - text: PDF
+        href: index.pdf
+        icon: file-pdf
+    theme:
+      light: minimal                  # light/dark Bootswatch themes + our overrides
+      dark: darkly
+    css: styles.css
+    highlight-style:
+      light: tango
+      dark: dracula
+    # CSL is HTML-only: Quarto fetches this URL for the web build. Typst can't
+    # open a remote CSL, so the PDF uses Typst's built-in numeric bibliography.
+    csl: https://raw.githubusercontent.com/citation-style-language/styles/master/ieee.csl
+
+# ---- Document-level (applies to BOTH formats) ----
+bibliography: references.bib
+title-block-style: none               # we hand-build the cover instead
+link-citations: true
+---
+
+<!-- =========================================================================
+     COVER / TITLE
+     The PDF gets a full-bleed Typst title page; the HTML gets a hero banner.
+     `.content-visible when-format=...` is the core switch for format-specific
+     content. Edit the title/subtitle/author in BOTH branches.
+     ========================================================================= -->
+
+::: {.content-visible when-format="typst"}
+```{=typst}
+// Full-bleed cover page with a background image.
+#page(
+  margin: 0pt,
+  background: image("assets/hero-bg.svg", width: 100%, height: 100%, fit: "cover"),
+  [
+    // Logo, pinned top-right (white variant reads on the dark background)
+    #place(top + right, dx: -40pt, dy: 40pt)[
+      #image("assets/logo-white.svg", width: 70pt)
+    ]
+
+    // Title block, placed ~25% down the page
+    #place(top + left, dy: 25%)[
+      #block(
+        width: 100%,
+        fill: rgb(0, 0, 0, 100),   // translucent scrim so text stays legible
+        inset: (top: 40pt, bottom: 50pt, left: 40pt, right: 40pt),
+      )[
+        #text(size: 28pt, weight: "bold", fill: rgb(255, 255, 255))[
+          Report Title Goes Here
+        ]
+        #v(10pt)
+        #text(size: 16pt, fill: rgb(255, 255, 255, 220))[
+          A concise, descriptive subtitle for your report
+        ]
+        #v(20pt)
+        #grid(
+            columns: 2,
+            align: horizon,
+            gutter: 1.2em, 
+            box(
+              fill: rgb(255, 255, 255, 40), 
+              inset: (x: 12pt, y: 8pt), 
+              radius: 6pt, 
+              text(fill: white, weight: "bold")[Your Name]
+            ),
+            text(fill: rgb("#ffffffb8"), size: 11pt)[Role / Affiliation]
+          )
+      ]
+    ]
+
+
+    // Background credit, pinned bottom-left
+    #place(bottom + left, dx: 30pt, dy: -15pt)[
+      #text(size: 8pt, fill: rgb(255, 255, 255, 150))[
+        Background: your image credit here
+      ]
+    ]
+  ]
+)
+
+// Reset the page counter so the body starts at page 1
+#counter(page).update(1)
+```
+:::
+
+::: {.content-visible when-format="html"}
+```{=html}
+<div class="hero-banner">
+  <div class="hero-banner-title">
+    Report Title Goes Here
+  </div>
+  <div class="hero-banner-subtitle">
+    A concise, descriptive subtitle for your report
+  </div>
+
+  <div style="display: flex; align-items: center; gap: 0.8em; font-size: 0.95em;">
+    <div class="hero-author-box">
+      <a href="mailto:you@example.com" class="hero-author-link">Your Name</a>
+    </div>
+    <div class="hero-author-text">Your Role / Affiliation</div>
+  </div>
+
+  <img src="assets/logo-white.svg" class="hero-logo">
+  <div class="hero-credit">Background: your image credit here</div>
+</div>
+```
+:::
+
+# Executive Summary {.unnumbered}
+
+{{< include _summary.qmd >}}
+
+```{=typst}
+// Injects the Table of Contents directly into this spot
+#pagebreak()
+#outline(title: "Table of Contents", depth: 2)
+#pagebreak()
+```
+
+# Component Gallery
+
+{{< include _components.qmd >}}
+
+# Media: Images, Dark Mode & Embeds
+
+{{< include _media.qmd >}}
+
+# Tables, Math & Code
+
+{{< include _tables_math.qmd >}}
+
+# Native Quarto Constructs
+
+{{< include _native.qmd >}}
+
+# Acknowledgements {.unnumbered}
+
+{{< include _acknowledgements.qmd >}}
+
+<!-- `{{< pagebreak >}}` forces a page break in the PDF (and a section break on the
+     web). Handy before appendices or references. -->
+{{< pagebreak >}}
+
+# References {.unnumbered}
+
+::: {#refs}
+:::

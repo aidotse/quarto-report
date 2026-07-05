@@ -1,0 +1,32 @@
+<!-- =========================================================================
+     ACKNOWLEDGEMENTS
+     Demonstrates a multi-column layout. `layout="[[55, 2, 45]]"` = one row with
+     three columns of relative width 55 / 2 (spacer) / 45. Each named `:::` block
+     with an id fills one column, in order.
+     ========================================================================= -->
+
+The layout below splits the credits into two columns with a thin spacer between them.
+
+::: {layout="[[55, 2, 45]]"}
+
+::: {#first-column}
+### Team {.unlisted .unnumbered}
+* **Ada Lovelace** — *Project Lead*
+* **Alan Turing** — *Research Engineer*
+* **Grace Hopper** — *ML Engineer*
+* **Katherine Johnson** — *Data Scientist*
+:::
+
+::: {#spacer-column}
+:::
+
+::: {#third-column}
+### Partners {.unlisted .unnumbered}
+* **Example Institute**
+* **Placeholder Labs**
+
+### Funding {.unlisted .unnumbered}
+* Grant No. 000-0000, Example Funding Agency
+:::
+
+:::

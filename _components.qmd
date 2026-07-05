@@ -1,0 +1,168 @@
+<!-- =========================================================================
+     COMPONENT GALLERY
+     Every component below works in BOTH the PDF and the HTML:
+       - HTML  : the fenced-div class is styled by styles.css
+       - PDF   : inline.lua rewrites the class into a Typst function (style.typ)
+     ========================================================================= -->
+
+## Inline text: code, badges, subtext & labels
+
+Inline `code spans` get a rounded, theme-aware background (via `inline.lua`, which
+tags them `.inline-code` on the web and wraps them in `#InlineCode` in the PDF).
+You can also highlight a term as an [orange badge]{.orange-badge}, add quieter
+[explanatory subtext]{.subtext}, or use monospace section labels like
+[INPUT]{.label-orange}, [CONTEXT]{.label-blue}, and [NOTE]{.label-dark}.
+
+<!-- Syntax: `code` · [text]{.orange-badge} · [text]{.subtext} ·
+     [text]{.label-orange|.label-blue|.label-dark} -->
+
+## Callout / boxed paragraphs
+
+A **prompt box** is a left-accented panel — good for system prompts, definitions,
+or any block you want to set apart. Wrap content in `::: {.prompt-box}`.
+
+::: {.prompt-box}
+Use the context below to answer the question.
+
+Answer with only the letter of the correct choice (A, B, C, or D).
+
+Context: {context}
+
+Question: {question}
+:::
+
+A **research-question / outlined box** (`::: {.research-question-box}`) is a plain
+bordered, italic block for a thesis statement or key question.
+
+::: {.research-question-box}
+How can a single Markdown source produce both a polished PDF and a themeable
+website without maintaining two documents?
+:::
+
+An **algorithm box** (`::: {.algorithm-box}`) is a light panel for pseudocode. It
+respects manual line breaks (end a line with a backslash `\`), inline and display
+math, monospace step labels like `` `1:` ``, `$\quad$` for indentation, and a
+horizontal rule (`---`) to split sub-procedures (styled by `.algorithm-box hr`).
+
+::: {.algorithm-box}
+**Algorithm 1** FederatedAveraging. $K$ clients indexed by $k$; local batch size
+$B$, local epochs $E$, learning rate $\eta$.
+
+**Server executes:**\
+`1:` initialize $w_0$\
+`2:` **for** each round $t = 1, 2, \dots$ **do**\
+`3:` $\quad$ $S_t \leftarrow$ (random set of $m$ clients)\
+`4:` $\quad$ **for** each client $k \in S_t$ **in parallel do**\
+`5:` $\quad\quad$ $w_{t+1}^{k} \leftarrow \text{ClientUpdate}(k, w_t)$\
+`6:` $\quad$ $w_{t+1} \leftarrow \sum_{k} \frac{n_k}{n}\, w_{t+1}^{k}$
+:::
+
+```{=typst}
+#pagebreak()
+```
+
+## Data cards (colored top border)
+
+Cards use `::: {.custom-card}` plus a theme class: `.anchor-theme` (blue),
+`.positive-theme` (green), or `.negative-theme` (red). Combine with Quarto's
+`layout-ncol` to place them side by side; a `---` inside becomes a divider rule.
+
+::: {.list-indent}
+::: {layout-ncol="3"}
+
+::: {.custom-card .anchor-theme}
+**Anchor** [(neutral)]{.subtext}
+
+---
+
+The blue "anchor" theme is for a reference item or a query.
+:::
+
+::: {.custom-card .positive-theme}
+**Positive** [(good)]{.subtext}
+
+---
+
+The green "positive" theme is for a correct or desirable item.
+:::
+
+::: {.custom-card .negative-theme}
+**Negative** [(bad)]{.subtext}
+
+---
+
+The red "negative" theme is for an incorrect or cautionary item.
+:::
+
+:::
+:::
+
+## Cards as a numbered figure (Q&A / quiz)
+
+Put cards inside a `::: {#fig-...}` block to get a numbered, cross-referenceable
+figure (@fig-quiz). This example pairs a `.quiz-card` with `.mcq-option` answers;
+add `.correct` to the right one.
+
+::: {#fig-quiz}
+
+::: {layout="[[45, 55]]"}
+
+::: {.quiz-card}
+[Topic Tag]{.quiz-tag} [Subtopic]{.quiz-tag}
+
+[Question]{.label-orange}
+Which fenced-div class produces the green "correct answer" styling?
+
+[Context]{.label-blue}
+Options use `::: {.mcq-option}`; the correct one adds the `.correct` class.
+:::
+
+::: {.quiz-card}
+
+::: {.mcq-option}
+**Option A** `.custom-card`
+:::
+::: {.mcq-option .correct}
+**Option B (correct)** `.mcq-option .correct`
+:::
+::: {.mcq-option}
+**Option C** `.prompt-box`
+:::
+
+> **Explanation**
+> `.mcq-option .correct` renders the green border and background.
+:::
+
+:::
+
+A quiz card paired with multiple-choice options.
+:::
+
+## Author / bio strip
+
+`.author-box` (a shaded pill) and `.divider-line` (a full-width rule) are HTML-only
+utilities — handy for a byline or a contributor list. The raw Typst counterpart to the former (other than using `backticks like this`) is a `box` (optionally in a `grid`), which lets you control the fill color, radius, etc.:
+
+::: {.content-visible when-format="typst"}
+```{=typst}
+#grid(
+     columns: 2,
+     align: horizon,
+     gutter: 1.2em, 
+     box(
+     fill: rgb(155, 155, 155, 40), 
+     inset: (x: 50pt, y: 8pt), 
+     radius: 6pt, 
+     text(fill: rgb("#474747b8"))[Your Name]
+     ),
+     text(fill: rgb("#000000b8"))[Your Role / Affiliation]
+)
+```
+:::
+
+::: {.content-visible when-format="html"}
+```{=html}
+<p><span class="author-box"><a href="mailto:you@example.com">Your Name</a></span> — Your Role / Affiliation</p>
+<div class="divider-line"></div>
+```
+:::

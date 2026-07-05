@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 200">
+  <!-- LIGHT-MODE diagram: dark strokes/text on transparent bg. Shown when .light -->
+  <defs>
+    <marker id="arrL" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+      <path d="M0,0 L8,3 L0,6 Z" fill="#333333"/>
+    </marker>
+  </defs>
+  <g font-family="Roboto, Arial, sans-serif" font-size="15" fill="#333333">
+    <rect x="20"  y="70" width="150" height="60" rx="8" fill="#eef1f6" stroke="#333333" stroke-width="1.5"/>
+    <text x="95"  y="105" text-anchor="middle">Input</text>
+    <rect x="245" y="70" width="150" height="60" rx="8" fill="#e3f2fd" stroke="#2196F3" stroke-width="1.5"/>
+    <text x="320" y="105" text-anchor="middle">Model</text>
+    <rect x="470" y="70" width="150" height="60" rx="8" fill="#e8f5e9" stroke="#4CAF50" stroke-width="1.5"/>
+    <text x="545" y="105" text-anchor="middle">Output</text>
+    <line x1="170" y1="100" x2="240" y2="100" stroke="#333333" stroke-width="1.5" marker-end="url(#arrL)"/>
+    <line x1="395" y1="100" x2="465" y2="100" stroke="#333333" stroke-width="1.5" marker-end="url(#arrL)"/>
+  </g>
+</svg>

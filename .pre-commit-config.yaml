@@ -1,0 +1,30 @@
+# Pre-commit hooks. Install once after `git init`:
+#   pipx install pre-commit   (or: uv tool install pre-commit)
+#   pre-commit install
+#
+# The panache-format hook auto-formats staged .qmd/.md files on commit using
+# panache.toml. If it reformats a file, the commit aborts so you can review and
+# re-stage (`git add`) — standard pre-commit behavior.
+#
+# `rev` is pinned deliberately (Panache is young — a silent upgrade could change
+# your diffs). Bump it intentionally with: `pre-commit autoupdate`.
+repos:
+  - repo: https://github.com/jolars/panache-pre-commit
+    rev: v2.61.0
+    hooks:
+      - id: panache-format
+      - id: panache-lint
+
+  # Full dual-format render test. Fast checks above run on every commit; this
+  # heavier integration test runs only on `git push` (pre-push stage), catching
+  # a broken render locally before it wastes a CI cycle. NOTE: this is local
+  # convenience only and is bypassable (`git push --no-verify`) — the real gate
+  # is the same test as a REQUIRED status check in GitHub branch protection.
+  - repo: local
+    hooks:
+      - id: render-test
+        name: quarto dual-format render test
+        entry: bash test/render-test.sh
+        language: system
+        stages: [pre-push]
+        pass_filenames: false

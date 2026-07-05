@@ -1,0 +1,38 @@
+<!-- Executive summary. Pulled into index.qmd under "Executive Summary".
+     The prose here is intentionally longer than it needs to be: it doubles as a
+     TYPOGRAPHY SPECIMEN so you can see the body font (Roboto), its leading and
+     tracking, the measure (line length), and how inline elements sit inside
+     running text — in both the PDF and on the web. Replace it with your own
+     summary; the lorem-ipsum paragraphs are just filler to judge the type. -->
+
+This template distills the dual-format Quarto patterns from a real project report
+into a single, reusable reference. Everything you see here renders from **one
+Markdown source** into **two outputs**: a print-ready PDF (via the Typst engine)
+and a themeable HTML site with working light/dark mode.
+
+The pages that follow are a live gallery: each section demonstrates an effect —
+cards, callout boxes, badges, dark-mode-aware images, embedded iframes, tables,
+math, and code — and names the exact syntax that produces it. Running body text
+like this paragraph is worth a look on its own: it lets you judge the *font*, its
+**weight**, the line spacing, and how inline pieces such as a `code span`, a
+[hyperlink](https://quarto.org), and a citation [@example2025] flow within a real
+paragraph before you commit to the design.
+
+To start a new report, replace this summary, edit the cover in `index.qmd`, and
+swap the placeholder assets in `assets/`. See `README.md` for the full map from
+each effect to the file and syntax that produces it.
+
+Some more text so you can judge the font / spacing settings:
+
+Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor
+incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud
+exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla
+pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia
+deserunt mollit anim id est laborum.
+
+Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium
+doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore
+veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam
+voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur
+magni dolores eos qui ratione voluptatem sequi nesciunt neque porro quisquam est.

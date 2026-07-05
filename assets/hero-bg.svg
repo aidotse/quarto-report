@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 420" preserveAspectRatio="xMidYMid slice">
+  <!-- Generic, license-clean placeholder hero background. Swap for your own image. -->
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#1e2a5a"/>
+      <stop offset="45%" stop-color="#4a2f8f"/>
+      <stop offset="100%" stop-color="#0f7d8c"/>
+    </linearGradient>
+    <linearGradient id="wave" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#ffffff" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#ffffff" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="420" fill="url(#bg)"/>
+  <path d="M0,300 C300,220 500,360 800,280 C1000,225 1100,300 1200,260 L1200,420 L0,420 Z" fill="url(#wave)"/>
+  <path d="M0,340 C250,300 480,400 760,330 C980,275 1120,340 1200,310 L1200,420 L0,420 Z" fill="#ffffff" fill-opacity="0.08"/>
+  <g fill="#ffffff" fill-opacity="0.10">
+    <circle cx="950" cy="110" r="140"/>
+    <circle cx="1080" cy="60" r="70"/>
+  </g>
+</svg>
