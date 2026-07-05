@@ -42,9 +42,10 @@ To start a new report: edit the cover in `index.qmd` (title/subtitle/author, in
   | `.github/workflows/render-report.yaml` | GitHub Actions: smoke-test on PRs, deploy `_site/` to GitHub Pages on push to `main` (see [Deploying](#deploying)).                                                                |
   | `test/render-test.sh`                  | Dependency-free smoke test: renders both formats and asserts the template invariants (see [Testing](#testing)).                                                                    |
 
-**The golden rule for a new component:** add it in three places with the same
-class name --- a branch in `inline.lua`, a function in `style.typ`, and a rule in
-`styles.css`.
+**The golden rule for a new component:** add it in four places with the same
+class name --- a branch in `inline.lua`, a function in `style.typ`, a rule in
+`styles.css`, and its class/Typst call in the `test/render-test.sh` lists (so the
+test actually covers it).
 
 ## Effect → how to do it
 
@@ -99,7 +100,9 @@ Quarto syntax (escaping `$…$` math, mangling `:::` fences and raw Typst/HTML b
 ```bash
 # one-time, after cloning:
 uv tool install pre-commit        # or: pipx install pre-commit
+pre-commit autoupdate             # pin the current Panache hook version
 pre-commit install --hook-type pre-commit --hook-type pre-push
+pre-commit run --all-files        # optional: check the whole repo now
 ```
 
 This wires two tiers of checks (see [Testing](#testing) for the render test):
@@ -110,8 +113,9 @@ This wires two tiers of checks (see [Testing](#testing) for the render test):
 - **on every push** --- the full `test/render-test.sh` dual-format render, as a local
   safety net that catches a broken render before it reaches CI.
 
-Format manually anytime with `panache format .` (or `panache format --check .` to
-verify without writing).
+To run the formatter by hand, install the CLI once (`uv tool install panache-cli`),
+then `panache format .` (or `panache format --check .` to verify without writing).
+The commit hook does not need this --- pre-commit fetches its own pinned Panache.
 The pre-push render test is local convenience and bypassable
 (`git push --no-verify`); the authoritative gate is the same test run as a required
 status check on `main` (see [Deploying](#deploying)).
