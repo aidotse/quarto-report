@@ -105,7 +105,6 @@ link-citations: true
   ]
 )
 
-
 // Reset the page counter so the body starts at page 1
 #counter(page).update(1)
 ```
