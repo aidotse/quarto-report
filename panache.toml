@@ -7,6 +7,8 @@
 # blocks). Panache parses the Pandoc/Quarto CST and is render-safe.
 
 flavor = "quarto"
+
+[format]
 line-width = 120
 
 [format]
