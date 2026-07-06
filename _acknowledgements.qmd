@@ -28,7 +28,6 @@ The layout below splits the credits into two columns with a thin spacer between 
 
 ### Funding {.unlisted .unnumbered}
 
-- Grant No.
-  000-0000, Example Funding Agency
+- Grant No. 000-0000, Example Funding Agency
 :::::
 :::

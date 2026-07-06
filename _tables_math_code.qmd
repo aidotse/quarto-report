@@ -2,11 +2,9 @@
      TABLES, MATH & CODE
      ========================================================================= -->
 
-## Simple table
+### Simple table
 
-A basic pipe table.
-Use `:---`, `:--:`, `---:` on the separator row to left-,
-center-, or right-align a column.
+A basic pipe table. Use `:---`, `:--:`, `---:` on the separator row to left-, center-, or right-align a column.
 
   | Component   | Class          | Where defined          |
   | :---------- | :------------- | :--------------------- |
@@ -14,14 +12,13 @@ center-, or right-align a column.
   | Data card   | `.custom-card` | styles.css / style.typ |
   | Inline code | `.inline-code` | inline.lua             |
 
-  : A simple, auto-width table.
-    {#tbl-simple}
+  : A simple, auto-width table. {#tbl-simple}
 
-## Complex table
+### Complex table
 
-Fine-grained control: set relative column widths with a `{tbl-colwidths="[...]"}`
-attribute on the caption, put math (`$\rho$`) in a header, and color individual
-cells with an inline span, e.g. `[0.87]{style="color: green; font-weight: bold;"}`.
+Fine-grained control: set relative column widths with a `{tbl-colwidths="[...]"}` attribute on the caption, put math
+(`$\rho$`) in a header, and color individual cells with an inline span, e.g.
+`[0.87]{style="color: green; font-weight: bold;"}`.
 
   | Run               | Config                         | Compute      | Score                                            | $\rho$                                           |
   | :---------------- | :----------------------------- | :----------- | :----------------------------------------------- | :----------------------------------------------- |
@@ -29,14 +26,13 @@ cells with an inline span, e.g. `[0.87]{style="color: green; font-weight: bold;"
   | **`optimized`**   | LR-1.7e-3 BS-8192 + warmup     | 2× GPU       | [0.87]{style="color: green; font-weight: bold;"} | [0.75]{style="color: green; font-weight: bold;"} |
   | **`distributed`** | As above + gradient checkpoint | 2× GPU + CPU | 0.85                                             | 0.74                                             |
 
-  : A wider table with custom column widths, math headers, and colored cells.
-    {#tbl-complex tbl-colwidths="[22, 34, 16, 14, 14]"}
+  : A wider table with custom column widths, math headers, and colored cells. {#tbl-complex tbl-colwidths="[22, 34, 16,
+    14, 14]"}
 
-## Math
+### Math
 
-Inline math renders with `$...$`, e.g. the temperature $\tau$ scales the logits.
-Display math uses `$$...$$` and is centered and enlarged in both formats.
-You can control the size further with `.math-display` and `.math-inline`:
+Inline math renders with `$...$`, display math uses `$$...$$` and is centered and enlarged in both formats. Controls:
+`.math-display` and `.math-inline`:
 
 ```{=html}
 <div style="margin-bottom: 2em;"></div>
@@ -60,25 +56,18 @@ $$
 #pagebreak()
 ```
 
-## Code blocks
+### Code blocks
 
-Fenced code blocks get a boxed, theme-aware background (light in light mode, a dark
-Dracula palette in dark mode --- configured via `highlight-style` in `index.qmd`).
-Name the language after the backticks for syntax highlighting.
+Fenced code blocks get a boxed, theme-aware background (light in light mode, a dark Dracula palette in dark mode ---
+configured via `highlight-style` in `index.qmd`). Name the language after the backticks for syntax highlighting.
 
-To fine-tune appearance (padding, corner radius, font size, colors), edit the
-`#show raw` rules in `layout.typ` for the PDF and the `--code-block-*` variables
-plus the *"Code blocks & highlighting"* section of `styles.css` for the web.
+To fine-tune appearance (padding, corner radius, font size, colors), edit the `#show raw` rules in `layout.typ` for the
+PDF and the `--code-block-*` variables plus the *"Code blocks & highlighting"* section of `styles.css` for the web.
 
 ```Dockerfile
 FROM base AS builder
 
-# Install uv
 COPY --from=ghcr.io/astral-sh/uv:latest /uv /uvx /bin/
-
-# Hatchling requires a version number to package / install with the code. 
-# Pass via --build-arg
-ARG VERSION=0.0.0
 
 # Install dependencies into .venv
 # Because of --no-install-project, this dependency layer will only invalidate 
@@ -91,7 +80,6 @@ RUN --mount=type=secret,id=uv_username \
     UV_INDEX_X_PASSWORD=$(cat /run/secrets/uv_password) \
     uv sync --frozen --no-dev --group training --no-install-project
 
-# Install our project code
 COPY README.md LICENSE.md ./
 COPY ./scripts ./scripts
 
@@ -105,16 +93,14 @@ RUN --mount=type=secret,id=uv_username \
     uv sync --frozen --no-dev --group training --no-editable
 
 
-# ---- STAGE 3: Production --------------------------------------------------------------
+# ---- STAGE 3: Production -----------------
 FROM base AS production
 
 WORKDIR /app
 
-# Just need the environment and the source code!
 COPY --link --from=builder /app/.venv /app/.venv
 COPY --link --from=builder /app/scripts /app/scripts
 
-# Need to specify this placeholder for the runtime call!
 ENV CMD=""
 CMD exec $CMD
 ```

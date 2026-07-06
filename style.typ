@@ -15,13 +15,12 @@
 // If you skip `#` and open with `##`, that `##` is treated as level 1.
 #show heading: it => {
   if it.level == 1 {
-    // Start every top-level (`#`) section on a fresh page. `weak: true` avoids a
-    // blank page when we're already at the top (e.g. the first section after the cover).
-    pagebreak(weak: true)
-    v(1.2em); text(size: 14pt, weight: "bold", fill: rgb("#666666"), it); v(0.5em)
+    v(1.2em); text(size: 16pt, weight: "bold", fill: rgb("#555555"), it); v(0.5em)
   } else if it.level == 2 {
-    v(1em); text(size: 12pt, weight: "bold", fill: rgb("#777777"), it); v(0.5em)
+    v(1em); text(size: 14pt, weight: "bold", fill: rgb("#666666"), it); v(0.5em)
   } else if it.level == 3 {
+    v(1em); text(size: 12pt, weight: "bold", fill: rgb("#777777"), it); v(0.5em)
+  } else if it.level == 4 {
     v(1em); text(size: 10pt, weight: "bold", fill: rgb("#888888"), it); v(0.5em)
   } else {
     v(0.75em); text(size: 10pt, weight: "bold", fill: rgb("#999999"), it); v(0.3em)

@@ -10,6 +10,8 @@ flavor = "quarto"
 line-width = 120
 
 [format]
-# "semantic" = one sentence / clause per line (ventilated prose), capped at
-# line-width. Gives clean, single-line-per-edit diffs and avoids reflow churn.
-wrap = "semantic"
+# "reflow" = fill prose to line-width (mdformat-style). Produces one canonical
+# wrapping regardless of how the source was broken — normalizes inconsistent
+# line-breaking. (Alternatives: "semantic" one-sentence-per-line but preserves
+# existing breaks; "preserve" leaves wrapping untouched.)
+wrap = "reflow"

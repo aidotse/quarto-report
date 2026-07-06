@@ -1,12 +1,9 @@
 # Dual-Format Quarto Report Template
 
-A self-contained starter for reports that render from **one Markdown source** to
-**both** a print-ready **PDF** (via the [Typst](https://typst.app) engine) and a
-themeable **HTML** site with working light/dark mode.
-It packages the mechanics
-worked out in a real project report as a reusable reference: cards, callout-style
-boxes, badges, dark-mode-aware images, light/dark artwork swaps, embedded iframes,
-tables, math, and code --- each styled identically across PDF and web.
+A self-contained starter for reports that render from **one Markdown source** to **both** a print-ready **PDF** (via the
+[Typst](https://typst.app) engine) and a themeable **HTML** site with working light/dark mode. It packages the mechanics
+worked out in a real project report as a reusable reference: cards, callout-style boxes, badges, dark-mode-aware images,
+light/dark artwork swaps, embedded iframes, tables, math, and code --- each styled identically across PDF and web.
 
 ## Quick start
 
@@ -18,13 +15,11 @@ quarto render index.qmd --to html    # HTML only
 quarto render index.qmd --to typst   # PDF only
 ```
 
-Requires a recent [Quarto](https://quarto.org) (Typst ships with it).
-Fonts are
-bundled in `assets/fonts/`, so the PDF is reproducible without system fonts.
+Requires a recent [Quarto](https://quarto.org) (Typst ships with it). Fonts are bundled in `assets/fonts/`, so the PDF
+is reproducible without system fonts.
 
-To start a new report: edit the cover in `index.qmd` (title/subtitle/author, in
-**both** the `typst` and `html` branches), replace the placeholder assets in
-`assets/`, and edit/replace the `_*.qmd` section partials.
+To start a new report: edit the cover in `index.qmd` (title/subtitle/author, in **both** the `typst` and `html`
+branches), replace the placeholder assets in `assets/`, and edit/replace the `_*.qmd` section partials.
 
 ## How it fits together
 
@@ -42,9 +37,8 @@ To start a new report: edit the cover in `index.qmd` (title/subtitle/author, in
   | `.github/workflows/render-report.yaml` | GitHub Actions: smoke-test on PRs, deploy `_site/` to GitHub Pages on push to `main` (see [Deploying](#deploying)).                                                                |
   | `test/render-test.sh`                  | Dependency-free smoke test: renders both formats and asserts the template invariants (see [Testing](#testing)).                                                                    |
 
-**The golden rule for a new component:** add it in four places with the same
-class name --- a branch in `inline.lua`, a function in `style.typ`, a rule in
-`styles.css`, and its class/Typst call in the `test/render-test.sh` lists (so the
+**The golden rule for a new component:** add it in four places with the same class name --- a branch in `inline.lua`, a
+function in `style.typ`, a rule in `styles.css`, and its class/Typst call in the `test/render-test.sh` lists (so the
 test actually covers it).
 
 ## Effect → how to do it
@@ -89,13 +83,11 @@ These are built into Quarto (not part of the custom styling layer):
   | Margin content                                     | `::: {.column-margin}` and `[^footnote]`                      | `_native.qmd` |
   | Citations & bibliography (styles, `.bib`, `#refs`) | `[@key]`, `@key`, `[@key, p. 5]` + `csl:`                     | `_native.qmd` |
 
-## Formatting & pre-commit hooks
+## Developing
 
-Source formatting is handled by [Panache](https://panache.bz), a Pandoc/Quarto-aware
-formatter + linter (config in `panache.toml`: one sentence per line, wrapped at 120
-columns).
-Do **not** use mdformat or Prettier --- they are CommonMark tools that corrupt
-Quarto syntax (escaping `$…$` math, mangling `:::` fences and raw Typst/HTML blocks).
+Source formatting is handled by [Panache](https://panache.bz), a Pandoc/Quarto-aware formatter + linter (config in
+`panache.toml`: prose reflowed to fill 120 columns). Do **not** use mdformat or Prettier --- they are CommonMark tools
+that corrupt Quarto syntax (escaping `$…$` math, mangling `:::` fences and raw Typst/HTML blocks).
 
 ```bash
 # one-time, after cloning:
@@ -107,18 +99,20 @@ pre-commit run --all-files        # optional: check the whole repo now
 
 This wires two tiers of checks (see [Testing](#testing) for the render test):
 
-- **on every commit** --- `panache format` (auto-formats staged `.qmd`/`.md`) and
-  `panache lint` (broken references, heading hierarchy).
-  Milliseconds.
-- **on every push** --- the full `test/render-test.sh` dual-format render, as a local
-  safety net that catches a broken render before it reaches CI.
+- **on every commit** --- `panache format` (auto-formats staged `.qmd`/`.md`) and `panache lint` (broken references,
+  heading hierarchy). Milliseconds.
+- **on every push** --- the full `test/render-test.sh` dual-format render, as a local safety net that catches a broken
+  render before it reaches CI.
 
-To run the formatter by hand, install the CLI once (`uv tool install panache-cli`),
-then `panache format .` (or `panache format --check .` to verify without writing).
-The commit hook does not need this --- pre-commit fetches its own pinned Panache.
-The pre-push render test is local convenience and bypassable
-(`git push --no-verify`); the authoritative gate is the same test run as a required
-status check on `main` (see [Deploying](#deploying)).
+To run the formatter by hand, install the CLI once (`uv tool install panache-cli`), then `panache format .` (or
+`panache format --check .` to verify without writing). The commit hook does not need this --- pre-commit fetches its own
+pinned Panache.
+
+> **Keep the Panache version in sync in two places:** `rev` in `.pre-commit-config.yaml` (local hooks) and
+> `panache-cli==<version>` in `.github/workflows/render-report.yaml` (the CI check). Bump them together so local and CI
+> enforce the same formatting; `pre-commit autoupdate` updates the former, then match the CI pin to it. The pre-push
+> render test is local convenience and bypassable (`git push --no-verify`); the authoritative gate is the same test run
+> as a required status check on `main` (see [Deploying](#deploying)).
 
 ## Testing
 
@@ -127,67 +121,52 @@ bash test/render-test.sh          # render both formats + assert invariants
 bash test/render-test.sh --keep   # keep _site/ and index.typ afterwards
 ```
 
-A plain `quarto render` only tells you the build didn't crash --- it will happily
-emit a PDF that silently dropped a component if the `inline.lua` → `style.typ`
-mapping breaks.
-This dependency-free bash smoke test guards that seam.
-It renders
-to HTML and PDF and checks that:
+A plain `quarto render` only tells you the build didn't crash --- it will happily emit a PDF that silently dropped a
+component if the `inline.lua` → `style.typ` mapping breaks. This dependency-free bash smoke test guards that seam. It
+renders to HTML and PDF and checks that:
 
 - both formats render without error and the PDF is a valid file with a sane page count;
 - every custom class (from `inline.lua` / `styles.css`) actually appears in the HTML;
 - the native Quarto constructs (callouts, tabset, margin) render;
-- the **PDF** received the Typst function calls (`#CustomCard`, `#PromptBox`, callouts, ...) --- verified against the intermediate `index.typ`;
+- the **PDF** received the Typst function calls (`#CustomCard`, `#PromptBox`, callouts, ...) --- verified against the
+  intermediate `index.typ`;
 - there are no unresolved cross-references or citations, and the bibliography populated.
 
-It exits non-zero on any failure, so it doubles as the CI gate on pull requests.
-**When you add a component**, add its HTML class to `CUSTOM_CLASSES` and its Typst
-call to `TYPST_CALLS` in the script.
+It exits non-zero on any failure, so it doubles as the CI gate on pull requests. **When you add a component**, add its
+HTML class to `CUSTOM_CLASSES` and its Typst call to `TYPST_CALLS` in the script.
 
 ## Deploying
 
-`.github/workflows/render-report.yaml` renders the report in CI and publishes the
-HTML site to GitHub Pages.
-The workflow assumes the template is the **repository
-root**, so:
+`.github/workflows/render-report.yaml` renders the report in CI and publishes the HTML site to GitHub Pages. The
+workflow assumes the template is the **repository root**, so:
 
-1. Copy the contents of `template/` into a new repository (the workflow file comes
-   along under `.github/workflows/`).
-2. In the repo settings, set **Pages → Build and deployment → Source** to
-   *GitHub Actions*.
-3. Push to `main`.
-   PRs get a build-only check; pushes to `main` render and deploy.
+1. Copy the contents of `template/` into a new repository (the workflow file comes along under `.github/workflows/`).
+2. In the repo settings, set **Pages → Build and deployment → Source** to *GitHub Actions*.
+3. Push to `main`. PRs get a build-only check; pushes to `main` render and deploy.
 
-**Protecting `main`:** enable *Settings → Branches → Add rule for `main` → "Require status checks to pass before merging"* and select the `test-build` check, so breaking code can't be merged.
+**Protecting `main`:** enable *Settings → Branches → Add rule for `main` → "Require status checks to pass before
+merging"* and select the `test-build` check, so breaking code can't be merged.
 
-The `index.qmd` sidebar links to `index.pdf`, which the same `quarto render`
-produces into `_site/`, so the PDF is downloadable from the published site.
+The `index.qmd` sidebar links to `index.pdf`, which the same `quarto render` produces into `_site/`, so the PDF is
+downloadable from the published site.
 
 ## Gotchas
 
-- **Typst heading levels are positional**, not absolute (see `style.typ`): the
-  first heading that appears becomes "level 1" styling regardless of how many `#`
-  it has.
-  Keep your heading hierarchy consistent.
-- **Edit the cover text in both branches** of `index.qmd` --- the Typst page and the
-  HTML hero are independent.
-- **Fonts** are bundled; `style.typ` uses Roboto + Roboto Mono.
-  Inter is also in
-  `assets/fonts/` if you prefer it (see the commented line in `style.typ`).
+- **Typst heading levels are positional**, not absolute (see `style.typ`): the first heading that appears becomes "level
+  1" styling regardless of how many `#` it has. Keep your heading hierarchy consistent.
+- **Edit the cover text in both branches** of `index.qmd` --- the Typst page and the HTML hero are independent.
+- **Fonts** are bundled; `style.typ` uses Roboto + Roboto Mono. Inter is also in `assets/fonts/` if you prefer it (see
+  the commented line in `style.typ`).
 
 ## Notes on this template's defaults
 
 Two choices were made when generating this template; both are easy to change:
 
-1. **Branding:** the logo is the **AI Sweden** wordmark, shipped in two variants ---
-   `logo.svg` (brand navy, for light backgrounds) and `logo-white.svg` (used on the
-   dark cover/hero).
-   The **hero background** (`hero-bg.svg`) and the demo
-   `diagram-*.svg` / `chart.svg` are generic, license-clean placeholders --- swap
-   them for your own.
-   Filenames referenced by `index.qmd` / `styles.css`:
-   `hero-bg.svg`, `logo-white.svg`, `diagram-light.svg`, `diagram-dark.svg`,
+1. **Branding:** the logo is the **AI Sweden** wordmark, shipped in two variants --- `logo.svg` (brand navy, for light
+   backgrounds) and `logo-white.svg` (used on the dark cover/hero). The **hero background** (`hero-bg.svg`) and the demo
+   `diagram-*.svg` / `chart.svg` are generic, license-clean placeholders --- swap them for your own. Filenames
+   referenced by `index.qmd` / `styles.css`: `hero-bg.svg`, `logo-white.svg`, `diagram-light.svg`, `diagram-dark.svg`,
    `chart.svg`.
-2. **This is an annotated showcase**, not a bare skeleton: each section renders an
-   example *and* explains it, so the built document doubles as documentation.
-   Delete the demo prose in the `_*.qmd` partials to turn it into a clean scaffold.
+2. **This is an annotated showcase**, not a bare skeleton: each section renders an example *and* explains it, so the
+   built document doubles as documentation. Delete the demo prose in the `_*.qmd` partials to turn it into a clean
+   scaffold.

@@ -89,13 +89,12 @@ link-citations: true
               fill: rgb(255, 255, 255, 40), 
               inset: (x: 12pt, y: 8pt), 
               radius: 6pt, 
-              text(fill: white, weight: "bold")[Your Name]
+              link("mailto:you@example.com")[#text(fill: white, weight: "bold")[Your Name]]
             ),
             text(fill: rgb("#ffffffb8"), size: 11pt)[Role / Affiliation]
           )
       ]
     ]
-
 
     // Background credit, pinned bottom-left
     #place(bottom + left, dx: 30pt, dy: -15pt)[
@@ -105,6 +104,7 @@ link-citations: true
     ]
   ]
 )
+
 
 // Reset the page counter so the body starts at page 1
 #counter(page).update(1)
@@ -134,42 +134,42 @@ link-citations: true
 ```
 :::
 
-# Executive Summary {.unnumbered}
+## Executive Summary {.unnumbered}
 
 {{< include _summary.qmd >}}
 
+::: {.content-visible when-format="typst"}
 ```{=typst}
 // Injects the Table of Contents directly into this spot
 #pagebreak()
-#outline(title: "Table of Contents", depth: 2)
+#outline(title: heading(level: 2, outlined: false, numbering: none)[Table of Contents], depth: 2)
 #pagebreak()
 ```
+:::
 
-# Component Gallery
+## Component Gallery
 
 {{< include _components.qmd >}}
 
-# Media: Images, Dark Mode & Embeds
+## Media: Images, Dark Mode & Embeds
 
 {{< include _media.qmd >}}
 
-# Tables, Math & Code
+## Tables, Math & Code
 
-{{< include _tables_math.qmd >}}
+{{< include _tables_math_code.qmd >}}
 
-# Native Quarto Constructs
+## Native Quarto Constructs
 
 {{< include _native.qmd >}}
 
-# Acknowledgements {.unnumbered}
+## Acknowledgements {.unnumbered}
 
 {{< include _acknowledgements.qmd >}}
 
-<!-- `{{< pagebreak >}}` forces a page break in the PDF (and a section break on the
-     web). Handy before appendices or references. -->
 {{< pagebreak >}}
 
-# References {.unnumbered}
+## References {.unnumbered}
 
 ::: {#refs}
 :::

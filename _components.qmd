@@ -5,51 +5,37 @@
        - PDF   : inline.lua rewrites the class into a Typst function (style.typ)
      ========================================================================= -->
 
-## Inline text: code, badges, subtext & labels
+### Inline text: code, badges, subtext & labels
 
-Inline `code spans` get a rounded, theme-aware background (via `inline.lua`, which
-tags them `.inline-code` on the web and wraps them in `#InlineCode` in the PDF).
-You can also highlight a term as an [orange badge]{.orange-badge}, add quieter
-[explanatory subtext]{.subtext}, or use monospace section labels like
-[INPUT]{.label-orange}, [CONTEXT]{.label-blue}, and [NOTE]{.label-dark}.
+Inline `code spans` get a rounded, theme-aware background (via `inline.lua`, which tags them `.inline-code` on the web
+and wraps them in `#InlineCode` in the PDF). You can also highlight a term as an [orange badge]{.orange-badge} or add
+quieter [explanatory subtext]{.subtext}. Monospace section labels come in two flavors: [INPUT]{.label-orange} and
+[CONTEXT]{.label-blue} sit *inline* as line prefixes (see the quiz card below), while
 
-<!-- Syntax: `code` · [text]{.orange-badge} · [text]{.subtext} ·
-     [text]{.label-orange|.label-blue|.label-dark} -->
+[NOTE]{.label-dark} is *block-level* --- it drops onto its own line to head the paragraph, list, or figure that follows
 
-## Callout / boxed paragraphs
+### Callout / boxed paragraphs
 
-A **prompt box** is a left-accented panel --- good for system prompts, definitions,
-or any block you want to set apart.
+A **prompt box** is a left-accented panel --- good for system prompts, definitions, or any block you want to set apart.
 Wrap content in `::: {.prompt-box}`.
 
 ::: {.prompt-box}
-Use the context below to answer the question.
-
-Answer with only the letter of the correct choice (A, B, C, or D).
-
-Context: {context}
-
-Question: {question}
+This prompt box is good for system prompts, definitions, etc.
 :::
 
-A **research-question / outlined box** (`::: {.research-question-box}`) is a plain
-bordered, italic block for a thesis statement or key question.
+A **research-question / outlined box** (`::: {.research-question-box}`) is a plain bordered, italic block for a thesis
+statement or key question.
 
 ::: {.research-question-box}
-How can a single Markdown source produce both a polished PDF and a themeable
-website without maintaining two documents?
+How can a single Markdown source produce both a polished PDF and a themeable website without maintaining two documents?
 :::
 
-An **algorithm box** (`::: {.algorithm-box}`) is a light panel for pseudocode.
-It
-respects manual line breaks (end a line with a backslash `\`), inline and display
-math, monospace step labels like `` `1:` ``, `$\quad$` for indentation, and a
-horizontal rule (`---`) to split sub-procedures (styled by `.algorithm-box hr`).
+An **algorithm box** (`::: {.algorithm-box}`) is a light panel for pseudocode. It respects manual line breaks (end a
+line with a backslash `\`), inline and display math, monospace step labels like `` `1:` ``, `$\quad$` for indentation,
+and a horizontal rule (`---`) to split sub-procedures (styled by `.algorithm-box hr`).
 
 ::: {.algorithm-box}
 **Algorithm 1** FederatedAveraging.
-$K$ clients indexed by $k$; local batch size
-$B$, local epochs $E$, learning rate $\eta$.
 
 **Server executes:**\
 `1:` initialize $w_0$\
@@ -60,16 +46,11 @@ $B$, local epochs $E$, learning rate $\eta$.
 `6:` $\quad$ $w_{t+1} \leftarrow \sum_{k} \frac{n_k}{n}\, w_{t+1}^{k}$
 :::
 
-```{=typst}
-#pagebreak()
-```
+### Data cards (colored top border)
 
-## Data cards (colored top border)
-
-Cards use `::: {.custom-card}` plus a theme class: `.anchor-theme` (blue),
-`.positive-theme` (green), or `.negative-theme` (red).
-Combine with Quarto's
-`layout-ncol` to place them side by side; a `---` inside becomes a divider rule.
+Cards use `::: {.custom-card}` plus a theme class: `.anchor-theme` (blue), `.positive-theme` (green), or
+`.negative-theme` (red). Combine with Quarto's `layout-ncol` to place them side by side; a `---` inside becomes a
+divider rule.
 
 ::: {.list-indent}
 ::::: {layout-ncol="3"}
@@ -99,23 +80,19 @@ The red "negative" theme is for an incorrect or cautionary item.
 :::::
 :::
 
-## Cards as a numbered figure (Q&A / quiz)
+### Cards as a numbered figure (Q&A / quiz)
 
-Put cards inside a `::: {#fig-...}` block to get a numbered, cross-referenceable
-figure (@fig-quiz).
-This example pairs a `.quiz-card` with `.mcq-option` answers;
-add `.correct` to the right one.
+Put cards inside a `::: {#fig-...}` block to get a numbered, cross-referenceable figure (@fig-quiz). This example pairs
+a `.quiz-card` with `.mcq-option` answers; add `.correct` to the right one.
 
 ::: {#fig-quiz}
 ::::: {layout="[[45, 55]]"}
 ::::::: {.quiz-card}
 [Topic Tag]{.quiz-tag} [Subtopic]{.quiz-tag}
 
-[Question]{.label-orange}
-Which fenced-div class produces the green "correct answer" styling?
+[Question]{.label-orange} Which fenced-div class produces the green "correct answer" styling?
 
-[Context]{.label-blue}
-Options use `::: {.mcq-option}`; the correct one adds the `.correct` class.
+[Context]{.label-blue} Options use `::: {.mcq-option}`; the correct one adds the `.correct` class.
 :::::::
 
 ::::::: {.quiz-card}
@@ -128,20 +105,17 @@ Options use `::: {.mcq-option}`; the correct one adds the `.correct` class.
 ::::::::: {.mcq-option}
 **Option C** `.prompt-box`
 :::::::::
-
-> **Explanation**
-> `.mcq-option .correct` renders the green border and background.
 :::::::
 :::::
 
 A quiz card paired with multiple-choice options.
 :::
 
-## Author / bio strip
+### Author / bio strip
 
-`.author-box` (a shaded pill) and `.divider-line` (a full-width rule) are HTML-only
-utilities --- handy for a byline or a contributor list.
-The raw Typst counterpart to the former (other than using `backticks like this`) is a `box` (optionally in a `grid`), which lets you control the fill color, radius, etc.:
+`.author-box` (a shaded pill) and `.divider-line` (a full-width rule) are HTML-only utilities --- handy for a byline or
+a contributor list. The raw Typst counterpart to the former (other than using `backticks like this`) is a `box`
+(optionally in a `grid`), which lets you control the fill color, radius, etc.:
 
 ::: {.content-visible when-format="typst"}
 ```{=typst}

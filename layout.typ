@@ -15,8 +15,8 @@
 #show: marginalia.setup.with(
   inner: (far: 3cm, width: 0cm,  sep: 0cm),    // margin-note column
   outer: (far: 3cm, width: 0cm,  sep: 0cm),  // margin-note column
-  top: 2cm,
-  bottom: 2cm,
+  top: 4cm,
+  bottom: 4cm,
 )
 
 #set par(justify: false)

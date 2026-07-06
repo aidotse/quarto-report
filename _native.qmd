@@ -4,11 +4,10 @@
      here for completeness — a popular subset, not the full set.
      ========================================================================= -->
 
-## Callout blocks
+### Callout blocks
 
-Quarto's five built-in callouts render as colored boxes in **both** HTML and PDF.
-Use `::: {.callout-note}` (or `-tip`, `-warning`, `-important`, `-caution`); the
-first `##` line becomes the title, or set `title="…"`.
+Quarto's five built-in callouts render as colored boxes in **both** HTML and PDF. Use `::: {.callout-note}` (or `-tip`,
+`-warning`, `-important`, `-caution`); the first `##` line becomes the title, or set `title="…"`.
 
 ::: {.callout-note}
 ## A note
@@ -34,8 +33,8 @@ Something to be careful about.
 Don't miss this.
 :::
 
-Callouts also take `appearance="simple"` (no colored header fill) and
-`icon=false`, and can be made collapsible on the web with `collapse="true"`:
+Callouts also take `appearance="simple"` (no colored header fill) and `icon=false`, and can be made collapsible on the
+web with `collapse="true"`:
 
 ::: {.callout-caution collapse="true" appearance="simple"}
 ## Click to expand (collapsible, simple appearance)
@@ -43,56 +42,48 @@ Callouts also take `appearance="simple"` (no colored header fill) and
 Collapsible callouts fold on the web; in the PDF they render fully expanded.
 :::
 
-## Tabsets
+### Tabsets
 
-`::: {.panel-tabset}` turns second-level headings into tabs on the web --- great for
-showing the same thing several ways (languages, OSes, before/after).
-In the PDF the
-tabs become consecutive subsections.
-Rendering the PDF prints a harmless warning:
-`Warning: couldn't recognize format, using default tabset rendering`.
-Quarto only ships tab layouts for a few formats (HTML, revealjs, ...),
-so for Typst it falls back to plain consecutive sections.
+`::: {.panel-tabset}` turns second-level headings into tabs on the web --- great for showing the same thing several ways
+(languages, OSes, before/after). In the PDF the tabs become consecutive subsections. Rendering the PDF prints a harmless
+warning: `Warning: couldn't recognize format, using default tabset rendering`. Quarto only ships tab layouts for a few
+formats (HTML, revealjs, ...), so for Typst it falls back to plain consecutive sections.
 
 ::: {.panel-tabset}
-### Python
+#### Python
 
 ```python
 print("hello from Python")
 ```
 
-### R
+#### R
 
 ```r
 print("hello from R")
 ```
 :::
 
-## Margin content
+### Margin content
 
-In the `article` layout you can push notes, figures, or citations into the right
-margin with `::: {.column-margin}`.[^marginnote]
+In the `article` layout you can push notes, figures, or citations into the right margin with
+`::: {.column-margin}`.[^marginnote] You can control the space available for margins in the
+`#show: marginalia.setup.with` block in `layout.typ`.
 
-[^marginnote]: Footnotes like this one are also rendered in the margin in the
-    article layout.
+[^marginnote]: Footnotes like this one are also rendered in the margin in the article layout.
 
 ::: {.column-margin}
-**Margin note.** This block sits in the margin next to the body text (HTML).
-In the
-PDF it falls back to a normal block.
+**Margin note.** This block sits in the margin next to the body text.
 :::
 
 Body text continues here; the margin note above sits alongside it on a wide screen.
 
-## Citations & bibliography
+### Citations & bibliography
 
-References work in **both** formats from a single BibTeX file.
-Add entries to
-`references.bib` (each with a citation key like `example2025`), cite them in the
-text with `@`, and Quarto builds the reference list for you.
+References work in **both** formats from a single BibTeX file. Add entries to `references.bib` (each with a citation key
+like `example2025`), cite them in the text with `@`, and Quarto builds the reference list for you.
 
-**Citing in text.** Wrap keys in square brackets for a parenthetical citation, or
-use a bare `@key` to weave the author into the sentence:
+**Citing in text.** Wrap keys in square brackets for a parenthetical citation, or use a bare `@key` to weave the author
+into the sentence:
 
   | Syntax                         | Renders as (IEEE)                                   |
   | :----------------------------- | :-------------------------------------------------- |
@@ -101,35 +92,26 @@ use a bare `@key` to weave the author into the sentence:
   | `[@example2025, p. 5]`         | with a locator [@example2025, p. 5]                 |
   | `[see @example2025; @web2024]` | prefix + multiple keys [see @example2025; @web2024] |
 
-  : Citation syntax and how it renders.
-    {#tbl-citations tbl-colwidths="[45, 55]"}
+  : Citation syntax and how it renders. {#tbl-citations tbl-colwidths="[45, 55]"}
 
-**Adding a reference.** Append a BibTeX record to `references.bib` --- `@article`,
-`@book`, `@misc`, `@inproceedings`, etc. --- then cite its key.
-Only cited entries
-appear in the reference list unless you add `nocite`.
-The two demo entries above
-(`example2025`, `web2024`) live in that file.
+**Adding a reference.** Append a BibTeX record to `references.bib` --- `@article`, `@book`, `@misc`, `@inproceedings`,
+etc. --- then cite its key. Only cited entries appear in the reference list unless you add `nocite`. The two demo
+entries above (`example2025`, `web2024`) live in that file.
 
-**The reference list.** It renders wherever you place an empty `::: {#refs} :::`
-div --- in this template that's under `# References` at the bottom of `index.qmd`.
-Remove that div and Quarto appends the list at the end of the document instead.
+**The reference list.** It renders wherever you place an empty `::: {#refs} :::` div --- in this template that's under
+`# References` at the bottom of `index.qmd`. Remove that div and Quarto appends the list at the end of the document
+instead.
 
-**Choosing a citation style.** The style is set by a [CSL](https://citationstyles.org)
-file via the `csl:` key.
-This template ships **IEEE** (numeric).
-Swap it for any
-style from the [CSL repository](https://github.com/citation-style-language/styles) ---
-e.g. `csl: apa.csl` (download it locally) for author--date.
+**Choosing a citation style.** The style is set by a [CSL](https://citationstyles.org) file via the `csl:` key. This
+template ships **IEEE** (numeric). Swap it for any style from the [CSL
+repository](https://github.com/citation-style-language/styles) --- e.g. `csl: apa.csl` (download it locally) for
+author--date.
 
 ::: {.callout-important}
 ## CSL is HTML-only in this template
 
-`csl:` is set **under the `html:` format**, not at the document level.
-Typst cannot
-open a remote CSL URL and would error, so the **PDF falls back to Typst's built-in
-numeric bibliography**.
-If you switch the HTML to an author--date style, the PDF
-won't match --- for a non-numeric PDF, set Typst's `bibliographystyle` instead (see
-`index.qmd` front matter and the Quarto Typst docs).
+`csl:` is set **under the `html:` format**, not at the document level. Typst cannot open a remote CSL URL and would
+error, so the **PDF falls back to Typst's built-in numeric bibliography**. If you switch the HTML to an author--date
+style, the PDF won't match --- for a non-numeric PDF, set Typst's `bibliographystyle` instead (see `index.qmd` front
+matter and the Quarto Typst docs).
 :::
