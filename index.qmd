@@ -3,6 +3,7 @@
 # DUAL-FORMAT QUARTO TEMPLATE (PDF via Typst + HTML site)
 # One Markdown source -> two outputs. See README.md for the effect->file map.
 # =============================================================================
+
 project:
   resources:
     - "assets/" # copy the whole assets/ dir into the build output
